@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>super clac</title>
+
+  <style>
+  body{width:80%; margin:50px auto;}
+  .flex{display:flex; justify-content:space-evenly}
+  .flex-col{display:flex; flex-direction:column; justify-content:space-evenly}
+  .inputs > input {margin:5px 0; width:50px; border-radius:5px}
+  .border-pink{margin:15px; border:1px solid pink}
+  .clac-buttonz button{width:25px; height:25px; background:violet; margin:4px; border-radius:5px}
+  .row{padding: 10px;letter-spacing: 3px; }
+  .row button{
+
+      margin: 5px 10px;
+      width: 100px;
+      }
+
+  </style>
+  </head>
+  <body>
+
+    <h1>my super clac</h1>
+    <div class="content flex-col">
+
+      <div class="3-box flex border-pink">
+        <div class="inputs flex-col">
+          <input class="border-pink" id="n1" >
+          <input class="border-pink" id="n2" >
+        </div>
+
+        <div class="clac-buttonz flex-col">
+          <div class="flex">
+            <button>+</button>
+            <button>-</button>
+          </div>
+          <div class="flex">
+            <button>*</button>
+            <button>/</button>
+          </div>
+        </div>
+
+        <div class="results flex-col">
+          <div>the result is:</div>
+          <div class=results > </div>
+        </div>
+
+
+      </div>
+
+      <div>
+        <div class="table"></div>
+
+
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+  <script>
+    let btnz = document.querySelectorAll('.clac-buttonz button');
+    let aritmeticFn = e => {
+      let aritmetic = e.target.textContent;
+      let n1 = parseInt(document.querySelector('#n1').value);
+      let n2 = parseInt(document.querySelector('#n2').value);
+      let setRes = r => document.querySelector('.results').innerHTML = r;
+      switch (aritmetic){
+        case '+' : setRes(n1+n2); break;
+        case '-' : setRes(n1-n2); break;
+        case '*' : setRes(n1*n2); break;
+        case '/' : setRes(n1/n2); break;
+      }
+    let ex = n1 + aritmetic + n2;
+    let row = `
+    <div class="row border-pink">
+      <span>${ex}</span>
+      <button onclick="edit(event)">edit</button>
+      <button onclick="del(event)">delete</button>
+    </div>`
+    let t =   document.querySelector('.table');
+    t.innerHTML += row;
+  }
+
+  btnz.forEach( btn=>btn.onclick=aritmeticFn  )
+
+
+ //function edit(e){
+  //  let row = e.target.parentNode;
+    //  console.log('edit', e.target,row)
+  //   let s = row.querySelector('span');
+  //    let ex = s.textContent;
+  //  s.innerHTML = `<input  value="${ex}"/>`
+  //  }
+  let cnt=0;
+function edit (e){
+   cnt++;
+   let row = e.target.parentNode
+ //  console.log('edit' , e.target,row)
+   let s = row.querySelector('span')
+   let ex = s.textContent;
+  // let st="save";
+  // if(ex==st){     i dont know why it is not good!!!
+      if(cnt%2){
+       console.log(row.querySelector('button').textContent)
+       s.innerHTML = `<input value="${ex}"/>`
+       row.querySelector('button').textContent="save";
+   }
+   else{  row = e.target.parentNode;
+        console.log(row);
+         ex=row.querySelector('input').value;
+       s.innerHTML ="";  // to delete the input
+       s.innerHTML=ex;
+       row.querySelector('button').textContent="edit";
+   }
+  // console.log(ex)
+}
+
+
+    function del(e){
+        let row = e.target.parentNode;
+    row.innerHTML="";
+
+    }
+
+
+  </script>
+
+  </body>
+
+</html>
